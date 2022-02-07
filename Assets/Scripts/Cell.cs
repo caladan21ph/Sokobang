@@ -12,7 +12,7 @@ public class Cell
     {
         this.row=row;
         this.col=col;
-        gameObject=null;
+        this.gameObject=null;
         
     }
 }
