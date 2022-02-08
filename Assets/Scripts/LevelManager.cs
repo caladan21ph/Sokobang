@@ -10,11 +10,15 @@ public class LevelManager : MonoBehaviour
     public Tilemap wallTilemap;
     public Tilemap objectTilemap;
 
+    public CrateManager crateManager;
+
     // Start is called before the first frame update
     void Start()
     {
         Vector3Int playerPos=GetObjectInGridPosition(player.transform.position);
+        
         Debug.Log(playerPos);
+        
 
       
         

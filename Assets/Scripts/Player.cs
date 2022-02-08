@@ -13,14 +13,19 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inputManager=GameObject.FindObjectOfType<InputManager>();
+        PrepareInput();
 
-        if(inputManager!=null)
+
+    }
+
+    private void PrepareInput()
+    {
+        inputManager = GameObject.FindObjectOfType<InputManager>();
+
+        if (inputManager != null)
         {
             inputManager.KeyPressedActionAddListener(InputHandler);
         }
-        
-        
     }
 
     private void InputHandler(KeyCode keyCode)
@@ -28,26 +33,31 @@ public class Player : MonoBehaviour
         switch (keyCode)
         {
             case KeyCode.UpArrow:
-                Debug.Log("Move up");
+                MovePlayer(new Vector3(0,1f,0));
                 break;
 
             case KeyCode.DownArrow:
-                Debug.Log("Move down");
+                MovePlayer(new Vector3(0,-1f,0));
                 break;
 
             case KeyCode.LeftArrow:
-                Debug.Log("Move left");
+               MovePlayer(new Vector3(-1f,0,0));
                 break;
 
             case KeyCode.RightArrow:
-                Debug.Log("Move right");
+               MovePlayer(new Vector3(1f,0,0));
                 break;
 
         
         
         }
     }
-       
+
+    private void MovePlayer(Vector3 position)
+    {
+       transform.position+=position;
+    }
+
 
     // Update is called once per frame
     void Update()
