@@ -7,12 +7,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     InputManager inputManager;
+    LevelManager levelManager;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
+        levelManager=GameObject.FindObjectOfType<LevelManager>();
+
         PrepareInput();
 
 
@@ -55,7 +58,16 @@ public class Player : MonoBehaviour
 
     private void MovePlayer(Vector3 position)
     {
-       transform.position+=position;
+       //check if object in target position before moving player
+
+       if(levelManager.CheckIfPositionHasCrate(transform.position+position)==false)
+       {
+            transform.position+=position;
+
+       }
+       
+
+      
     }
 
 

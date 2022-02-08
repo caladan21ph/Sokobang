@@ -6,13 +6,16 @@ using UnityEngine;
 public class CrateManager : MonoBehaviour
 {
     public List<GameObject> cratePositions;
-    GridLayout gridLayout;
+  
     public GameObject cratePrefab;
+
+    public LevelManager levelManager;
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        gridLayout=GameObject.FindObjectOfType<GridLayout>();
+       
 
         InstantiateCrates();
         
@@ -23,6 +26,10 @@ public class CrateManager : MonoBehaviour
        foreach (GameObject crate in cratePositions)
        {
            GameObject crateInstance=Instantiate(cratePrefab,crate.transform.position,Quaternion.identity,transform);
+           Cell gridCell=levelManager.objectGrid[Vector2Int.FloorToInt(crate.transform.position)];
+           gridCell.gameObject=crateInstance;
+          
+           
            
 
        }
