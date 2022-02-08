@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
        
     }
 
-    public  bool CheckIfPositionHasCrate(Vector3 position)
+    public  bool CheckIfPositionIsBlocked(Vector3 position)
     {
         Cell targetCell=objectGrid[Vector2Int.FloorToInt(position)];
         if(targetCell.gameObject!=null)
@@ -69,6 +69,16 @@ public class LevelManager : MonoBehaviour
 
         return false;
     }
+
+
+    public GameObject GetCellGameObject(Vector3 position)
+    {
+        return objectGrid[Vector2Int.FloorToInt(position)].gameObject;
+    }
+
+
+
+
 
     // Update is called once per frame
    

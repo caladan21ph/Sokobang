@@ -59,10 +59,23 @@ public class Player : MonoBehaviour
     private void MovePlayer(Vector3 position)
     {
        //check if object in target position before moving player
+       Vector3 targetPosition=transform.position+position;
 
-       if(levelManager.CheckIfPositionHasCrate(transform.position+position)==false)
+       if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
        {
             transform.position+=position;
+
+       }
+       else
+       {
+           //Check if object is crate, and if it is push it
+           GameObject objectInPosition=levelManager.GetCellGameObject(targetPosition);
+        //    Debug.Log(objectInPosition.GetType().ToString());
+           if(objectInPosition.GetComponent<Crate>()!=null)
+           {
+               Debug.Log("pushed crate");
+               objectInPosition.GetComponent<Crate>().Pushed(position);
+           }
 
        }
        
