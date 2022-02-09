@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
 
     public Tilemap floorTilemap;
 
-    private bool mapInit=false;
+  
 
     
 
@@ -110,11 +110,7 @@ public class LevelManager : MonoBehaviour
         return objectGrid[Vector2Int.FloorToInt(position)].gameObject;
     }
 
-    private void Update() 
-    {
-       
-        
-    }
+   
 
 
 

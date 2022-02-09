@@ -11,10 +11,12 @@ public class Player : MonoBehaviour
 
     private Vector3 targetPosition;
     private bool movingToTargetPosition=false;
+
+    [SerializeField] private float moveSpeed=10f;
+
     
 
-    // Start is called before the first frame update
-    void Start()
+        void Start()
     {
         targetPosition=transform.position;
         levelManager=GameObject.FindObjectOfType<LevelManager>();
@@ -72,52 +74,61 @@ public class Player : MonoBehaviour
 
        }
        else
-       {
-           //Check if object is crate, and if it is push it
-           GameObject objectInPosition=levelManager.GetCellGameObject(targetPosition);
-           if(objectInPosition!=null)
-           {
-                //Debug.Log(objectInPosition.GetType().ToString());
-                if(objectInPosition.tag=="Crate")
-                {
-                    // Debug.Log("pushed crate");
-                    if(objectInPosition.GetComponent<Crate>().Pushed(position)==true)
-                    {
-                        movingToTargetPosition=true;
-                        // transform.position+=position;
-                    }
-                }
-               
-           }
-        
+        {
+            PushCrate(position);
 
-       }
-       
+        }
 
-      
+
+
     }
 
-    private void Update() {
-        if(targetPosition!=transform.position)
+    private void PushCrate(Vector3 position)
+    {
+        //Check if object is crate, and if it is push it
+        GameObject objectInPosition = levelManager.GetCellGameObject(targetPosition);
+        if (objectInPosition != null)
         {
-            if(movingToTargetPosition)
+            //Debug.Log(objectInPosition.GetType().ToString());
+            if (objectInPosition.tag == "Crate")
             {
-                transform.position=Vector3.MoveTowards(transform.position,targetPosition,10*Time.deltaTime);
+                // Debug.Log("pushed crate");
+                if (objectInPosition.GetComponent<Crate>().Pushed(position) == true)
+                {
+                    movingToTargetPosition = true;
+                    // transform.position+=position;
+                }
+            }
+
+        }
+    }
+
+    private void Update()
+    {
+        PlayerMove();
+    }
+
+    private void PlayerMove()
+    {
+        if (targetPosition != transform.position)
+        {
+            if (movingToTargetPosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
             }
-            
+
         }
         else
         {
-            movingToTargetPosition=false;
+            movingToTargetPosition = false;
         }
     }
 
 
-  
-
-    
 
 
-   
+
+
+
 }
