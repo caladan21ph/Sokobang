@@ -6,14 +6,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    InputManager inputManager;
-    LevelManager levelManager;
+    private InputManager inputManager;
+    private LevelManager levelManager;
 
+    private Vector3 targetPosition;
+    private bool movingToTargetPosition=false;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        targetPosition=transform.position;
         levelManager=GameObject.FindObjectOfType<LevelManager>();
 
         PrepareInput();
@@ -59,12 +62,13 @@ public class Player : MonoBehaviour
     private void MovePlayer(Vector3 position)
     {
        //check if object in target position before moving player
-       Vector3 targetPosition=transform.position+position;
+        targetPosition=transform.position+position;
     //    Debug.Log("Target position:"+ Vector3Int.FloorToInt(targetPosition));
 
        if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
        {
-            transform.position+=position;
+            movingToTargetPosition=true;
+            // transform.position+=position;
 
        }
        else
@@ -79,7 +83,8 @@ public class Player : MonoBehaviour
                     // Debug.Log("pushed crate");
                     if(objectInPosition.GetComponent<Crate>().Pushed(position)==true)
                     {
-                        transform.position+=position;
+                        movingToTargetPosition=true;
+                        // transform.position+=position;
                     }
                 }
                
@@ -90,6 +95,22 @@ public class Player : MonoBehaviour
        
 
       
+    }
+
+    private void Update() {
+        if(targetPosition!=transform.position)
+        {
+            if(movingToTargetPosition)
+            {
+                transform.position=Vector3.MoveTowards(transform.position,targetPosition,10*Time.deltaTime);
+
+            }
+            
+        }
+        else
+        {
+            movingToTargetPosition=false;
+        }
     }
 
 
