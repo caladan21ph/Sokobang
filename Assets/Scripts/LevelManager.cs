@@ -68,11 +68,11 @@ public class LevelManager : MonoBehaviour
         Debug.Log(wallTilemap.origin);
         for (int i = wallTilemap.origin.x; i < wallTilemap.size.x; i++)
         {
-            Debug.Log(i);
+          
             for (int j = wallTilemap.origin.y; j < wallTilemap.size.y; j++)
             {
                 TileBase tile = wallTilemap.GetTile(Vector3Int.FloorToInt(new Vector3(i, j, 0)));
-                Debug.Log(tile);
+                // Debug.Log(tile);
                 
 
             }
@@ -112,11 +112,7 @@ public class LevelManager : MonoBehaviour
 
     private void Update() 
     {
-        if(!mapInit)
-        {
-            AddWallsToObjectGrid();
-            mapInit=true;
-        }
+       
         
     }
 

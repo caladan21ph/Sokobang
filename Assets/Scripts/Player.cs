@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     {
        //check if object in target position before moving player
        Vector3 targetPosition=transform.position+position;
-       Debug.Log("Target position:"+ Vector3Int.FloorToInt(targetPosition));
+    //    Debug.Log("Target position:"+ Vector3Int.FloorToInt(targetPosition));
 
        if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
        {
@@ -71,12 +71,17 @@ public class Player : MonoBehaviour
        {
            //Check if object is crate, and if it is push it
            GameObject objectInPosition=levelManager.GetCellGameObject(targetPosition);
-        //    Debug.Log(objectInPosition.GetType().ToString());
-           if(objectInPosition.tag=="Crate")
+           if(objectInPosition!=null)
            {
-               Debug.Log("pushed crate");
-               objectInPosition.GetComponent<Crate>().Pushed(position);
+                //Debug.Log(objectInPosition.GetType().ToString());
+                if(objectInPosition.tag=="Crate")
+                {
+                    Debug.Log("pushed crate");
+                    objectInPosition.GetComponent<Crate>().Pushed(position);
+                }
+               
            }
+        
 
        }
        
@@ -85,11 +90,7 @@ public class Player : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
     
 
