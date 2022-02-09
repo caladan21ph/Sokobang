@@ -6,9 +6,15 @@ public class Crate : MonoBehaviour
 {
     LevelManager levelManager;
 
+    private Vector3 targetPosition;
+    private bool movingToTargetPosition=false;
+
+    [SerializeField] private float moveSpeed=10f;
+
     // Start is called before the first frame update
     void Start()
     {
+        targetPosition=transform.position;
         levelManager=GameObject.FindObjectOfType<LevelManager>();
         
     }
@@ -16,16 +22,19 @@ public class Crate : MonoBehaviour
    
     public bool Pushed(Vector3 position)
     {
-        Vector3 targetPosition=transform.position+position;
+        targetPosition=transform.position+position;
 
         //Check if there is object in target position
         if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
         {
-            levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].gameObject=null;
-             levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].gameObject=this.gameObject;
-            //position is not blocked.Move crate
-            transform.position=targetPosition;
             //remove crate from current cell and move to target cell
+            levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].gameObject=null;
+            levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].gameObject=this.gameObject;
+            //position is not blocked.Move crate
+
+            // transform.position=targetPosition;
+            movingToTargetPosition=true;
+            
             return true;
           
         }
@@ -33,5 +42,26 @@ public class Crate : MonoBehaviour
         return false;
 
         
+    }
+
+    private void Update()
+    {
+        MoveCrate();
+    }
+
+
+    private void MoveCrate()
+    {
+        if (targetPosition != transform.position)
+        {
+            if (movingToTargetPosition)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            }
+        }
+        else
+        {
+            movingToTargetPosition = false;
+        }
     }
 }

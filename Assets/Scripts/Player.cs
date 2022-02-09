@@ -38,6 +38,9 @@ public class Player : MonoBehaviour
 
     private void InputHandler(KeyCode keyCode)
     {
+        //do not move if currently moving
+        if(movingToTargetPosition) return;
+
         switch (keyCode)
         {
             case KeyCode.UpArrow:
