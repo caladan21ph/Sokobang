@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
     {
        //check if object in target position before moving player
        Vector3 targetPosition=transform.position+position;
+       Debug.Log("Target position:"+ Vector3Int.FloorToInt(targetPosition));
 
        if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
        {

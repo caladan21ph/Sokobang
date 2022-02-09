@@ -8,17 +8,23 @@ public class LevelManager : MonoBehaviour
     public GameObject player;
     public GridLayout gridLayout;
     public Tilemap wallTilemap;
+    
     public Tilemap objectTilemap;
 
     public Tilemap floorTilemap;
 
+    private bool mapInit=false;
+
     
 
     public Dictionary<Vector2Int,Cell> objectGrid=new Dictionary<Vector2Int, Cell>();
+    
+    
 
 
     private void Awake() 
     {
+       
 
          PrepareObjectGrid();
 
@@ -53,6 +59,25 @@ public class LevelManager : MonoBehaviour
             }
 
         }
+
+        
+    }
+
+    private void AddWallsToObjectGrid()
+    {
+        Debug.Log(wallTilemap.origin);
+        for (int i = wallTilemap.origin.x; i < wallTilemap.size.x; i++)
+        {
+            Debug.Log(i);
+            for (int j = wallTilemap.origin.y; j < wallTilemap.size.y; j++)
+            {
+                TileBase tile = wallTilemap.GetTile(Vector3Int.FloorToInt(new Vector3(i, j, 0)));
+                Debug.Log(tile);
+                
+
+            }
+
+        }
     }
 
     public Vector3Int GetObjectInGridPosition(Vector3 objectPosition)
@@ -63,11 +88,18 @@ public class LevelManager : MonoBehaviour
 
     public  bool CheckIfPositionIsBlocked(Vector3 position)
     {
+        // Debug.Log(Vector3Int.FloorToInt(position-new Vector3(wallTilemap.size.x/2,wallTilemap.size.y/2,0)));
+
+        Vector3Int adjustedPosition=Vector3Int.FloorToInt(position-new Vector3(wallTilemap.size.x/2,wallTilemap.size.y/2,0));
+       
         Cell targetCell=objectGrid[Vector2Int.FloorToInt(position)];
-        if(targetCell.gameObject!=null)
+        if(targetCell.gameObject!=null || wallTilemap.GetTile(adjustedPosition)!=null)
         {
             return true;
         }
+        
+
+
 
         return false;
     }
@@ -78,10 +110,20 @@ public class LevelManager : MonoBehaviour
         return objectGrid[Vector2Int.FloorToInt(position)].gameObject;
     }
 
+    private void Update() 
+    {
+        if(!mapInit)
+        {
+            AddWallsToObjectGrid();
+            mapInit=true;
+        }
+        
+    }
 
 
 
 
-    // Update is called once per frame
+
+   
    
 }
