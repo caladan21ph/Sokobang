@@ -4,39 +4,34 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour
 {
+    LevelManager levelManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        levelManager=GameObject.FindObjectOfType<LevelManager>();
         
     }
 
-    // Update is called once per frame
-    void Update()
+   
+    public bool Pushed(Vector3 position)
     {
-        
-    }
+        Vector3 targetPosition=transform.position+position;
 
-    public void Pushed(Vector3 position)
-    {
-        if(position.x>0)
+        //Check if there is object in target position
+        if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
         {
-            //pushed to the right
-            Debug.Log("pushed right");
+            levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].gameObject=null;
+             levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].gameObject=this.gameObject;
+            //position is not blocked.Move crate
+            transform.position=targetPosition;
+            //remove crate from current cell and move to target cell
+            return true;
+          
         }
-        else if(position.x<0)
-        {
-            //pushed to the left
-             Debug.Log("pushed left");
-        }
-        else if(position.y>0)
-        {
-            //pushed up
-             Debug.Log("pushed up");
-        }
-        else if(position.y<0)
-        {
-            //pushed down
-             Debug.Log("pushed down");
-        }
+
+        return false;
+
+        
     }
 }

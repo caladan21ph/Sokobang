@@ -76,8 +76,11 @@ public class Player : MonoBehaviour
                 //Debug.Log(objectInPosition.GetType().ToString());
                 if(objectInPosition.tag=="Crate")
                 {
-                    Debug.Log("pushed crate");
-                    objectInPosition.GetComponent<Crate>().Pushed(position);
+                    // Debug.Log("pushed crate");
+                    if(objectInPosition.GetComponent<Crate>().Pushed(position)==true)
+                    {
+                        transform.position+=position;
+                    }
                 }
                
            }
