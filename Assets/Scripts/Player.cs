@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
            //Check if object is crate, and if it is push it
            GameObject objectInPosition=levelManager.GetCellGameObject(targetPosition);
         //    Debug.Log(objectInPosition.GetType().ToString());
-           if(objectInPosition.GetComponent<Crate>()!=null)
+           if(objectInPosition.tag=="Crate")
            {
                Debug.Log("pushed crate");
                objectInPosition.GetComponent<Crate>().Pushed(position);
