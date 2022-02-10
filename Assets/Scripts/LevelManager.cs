@@ -86,14 +86,14 @@ public class LevelManager : MonoBehaviour
        
     }
 
-    public  bool CheckIfPositionIsBlocked(Vector3 position)
+    public  bool CheckIfPositionHasObject(Vector3 position)
     {
         // Debug.Log(Vector3Int.FloorToInt(position-new Vector3(wallTilemap.size.x/2,wallTilemap.size.y/2,0)));
 
         Vector3Int adjustedPosition=Vector3Int.FloorToInt(position-new Vector3(wallTilemap.size.x/2,wallTilemap.size.y/2,0));
        
         Cell targetCell=objectGrid[Vector2Int.FloorToInt(position)];
-        if(targetCell.crate!=null || wallTilemap.GetTile(adjustedPosition)!=null)
+        if(targetCell.crate!=null || targetCell.goal!=null || wallTilemap.GetTile(adjustedPosition)!=null)
         {
             return true;
         }
@@ -109,6 +109,12 @@ public class LevelManager : MonoBehaviour
     {
         return objectGrid[Vector2Int.FloorToInt(position)].crate;
     }
+
+    public Goal GetCellGoal(Vector3 position)
+    {
+        return objectGrid[Vector2Int.FloorToInt(position)].goal;
+    }
+    
 
    
 

@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         targetPosition=transform.position+position;
     
 
-       if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
+       if(levelManager.CheckIfPositionHasObject(targetPosition)==false)
        {
            //position is not blocked move to target position
             movingToTargetPosition=true;
@@ -79,7 +79,16 @@ public class Player : MonoBehaviour
        }
        else
         {
-            PushCrate(position);
+            //position has something so do something about it
+            Crate crateInPosition = levelManager.GetCellCrate(targetPosition);
+            Goal  goalInPosition=levelManager.GetCellGoal(targetPosition);
+
+            PushCrate(position,crateInPosition);
+           
+            CheckGoal(targetPosition,goalInPosition);
+
+           
+            
 
         }
 
@@ -87,10 +96,24 @@ public class Player : MonoBehaviour
 
     }
 
-    private void PushCrate(Vector3 position)
+    private void CheckGoal(Vector3 position, Goal goalInPosition)
+    {
+        if (goalInPosition != null && levelManager.GetCellCrate(position)==null)
+        {
+            //Debug.Log(objectInPosition.GetType().ToString());
+            if (goalInPosition.tag == "Goal")
+            {
+                Debug.Log("Stepped on goal");
+                movingToTargetPosition=true;
+            }
+
+        }
+    }
+
+    private bool PushCrate(Vector3 position, Crate objectInPosition)
     {
         //Check if object is crate, and if it is push it
-       Crate objectInPosition = levelManager.GetCellCrate(targetPosition);
+      
         if (objectInPosition != null)
         {
             //Debug.Log(objectInPosition.GetType().ToString());
@@ -101,10 +124,12 @@ public class Player : MonoBehaviour
                 {
                     movingToTargetPosition = true;
                     // transform.position+=position;
+                    return true;
                 }
             }
 
         }
+        return false;
     }
 
     private void Update()

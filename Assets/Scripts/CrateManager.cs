@@ -28,7 +28,7 @@ public class CrateManager : MonoBehaviour
     {
          foreach (GameObject goal in goalPositions)
        {
-           GameObject goalInstance=Instantiate(goalPrefab,goal.transform.position,Quaternion.identity,transform);
+           Goal goalInstance=Instantiate(goalPrefab,goal.transform.position,Quaternion.identity,transform).GetComponent<Goal>();
            Cell gridCell=levelManager.objectGrid[Vector2Int.FloorToInt(goal.transform.position)];
            gridCell.goal=goalInstance;
           

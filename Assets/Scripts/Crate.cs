@@ -23,10 +23,14 @@ public class Crate : MonoBehaviour
     public bool Pushed(Vector3 position)
     {
         targetPosition=transform.position+position;
+        bool objectInPosition=levelManager.CheckIfPositionHasObject(targetPosition);
+        Crate crateInPosition=levelManager.GetCellCrate(targetPosition);
+        Goal goalInPosition=levelManager.GetCellGoal(targetPosition);
 
         //Check if there is object in target position
-        if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
+        if((objectInPosition==false) || (objectInPosition && goalInPosition && crateInPosition==null ))
         {
+            Debug.Log("crate pushed");
             //remove crate from current cell and move to target cell
             levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].crate=null;
             levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].crate=this.gameObject.GetComponent<Crate>();
@@ -38,6 +42,7 @@ public class Crate : MonoBehaviour
             return true;
           
         }
+        
 
         return false;
 

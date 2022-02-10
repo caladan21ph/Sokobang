@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cell 
 {
     public Crate crate;
-    public GameObject goal;
+    public Goal goal;
     public Cell()
     {
         
