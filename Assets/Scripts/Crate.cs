@@ -38,6 +38,9 @@ public class Crate : MonoBehaviour
 
             // transform.position=targetPosition;
             movingToTargetPosition=true;
+
+            //check if level complete everytime crate moves
+            levelManager.CheckIfLevelComplete();
             
             return true;
           

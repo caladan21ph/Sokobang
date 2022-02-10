@@ -10,6 +10,18 @@ public class Cell
     {
         
     }
+
+    public bool CheckIfCrateMatchesGoal()
+    {
+        if(goal!=null && crate!=null)
+        {
+           return true;
+        }
+
+        return false;
+
+
+    }
    
    
 }

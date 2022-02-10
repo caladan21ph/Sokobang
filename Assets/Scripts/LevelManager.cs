@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
 
     public Tilemap floorTilemap;
 
+    public CrateManager crateManager;
+
   
 
     
@@ -113,6 +115,38 @@ public class LevelManager : MonoBehaviour
     public Goal GetCellGoal(Vector3 position)
     {
         return objectGrid[Vector2Int.FloorToInt(position)].goal;
+    }
+
+
+    public void CheckIfLevelComplete()
+    {
+        List<Vector3> goalPositions=new List<Vector3>();
+
+        //get all positions and store them in a list
+        foreach (GameObject goal in crateManager.goalPositions)
+        {
+            goalPositions.Add(goal.transform.position);
+        }
+
+        //for each position in the list check cell if has both crate and goal
+
+        int amountOfGoalsFilled=0;
+
+        foreach (Vector3 position in goalPositions)
+        {
+            if(GetCellCrate(position)!=null && GetCellGoal(position)!=null)
+            {
+               
+                amountOfGoalsFilled+=1;
+            }
+            
+        }
+
+        if(amountOfGoalsFilled>=goalPositions.Count)
+        {
+            Debug.Log("Level Complete!");
+        }
+
     }
     
 
