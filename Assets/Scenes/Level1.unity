@@ -252,6 +252,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca60b0c48fd22845a871f2795b8d0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &689791949 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8579855432999738249, guid: acd42b6ee84959a45aa796252186daba, type: 3}
+  m_PrefabInstance: {fileID: 8579855432345177790}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ebe54e2f6d0f9e40a5bb836bb894bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1839735485 &754961947 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 500640586574400445, guid: 0997c7f605d77af4d837786c30f5da79, type: 3}
@@ -612,6 +623,10 @@ PrefabInstance:
       propertyPath: wallTilemap
       value: 
       objectReference: {fileID: 754961947}
+    - target: {fileID: 3163089164440588443, guid: 5516641a9610c1b4996e3134a422f5e8, type: 3}
+      propertyPath: crateManager
+      value: 
+      objectReference: {fileID: 689791949}
     - target: {fileID: 3163089164440588443, guid: 5516641a9610c1b4996e3134a422f5e8, type: 3}
       propertyPath: floorTilemap
       value: 
