@@ -28,8 +28,8 @@ public class Crate : MonoBehaviour
         if(levelManager.CheckIfPositionIsBlocked(targetPosition)==false)
         {
             //remove crate from current cell and move to target cell
-            levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].gameObject=null;
-            levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].gameObject=this.gameObject;
+            levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].crate=null;
+            levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].crate=this.gameObject.GetComponent<Crate>();
             //position is not blocked.Move crate
 
             // transform.position=targetPosition;

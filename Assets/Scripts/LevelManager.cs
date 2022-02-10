@@ -93,7 +93,7 @@ public class LevelManager : MonoBehaviour
         Vector3Int adjustedPosition=Vector3Int.FloorToInt(position-new Vector3(wallTilemap.size.x/2,wallTilemap.size.y/2,0));
        
         Cell targetCell=objectGrid[Vector2Int.FloorToInt(position)];
-        if(targetCell.gameObject!=null || wallTilemap.GetTile(adjustedPosition)!=null)
+        if(targetCell.crate!=null || wallTilemap.GetTile(adjustedPosition)!=null)
         {
             return true;
         }
@@ -105,9 +105,9 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public GameObject GetCellGameObject(Vector3 position)
+    public Crate GetCellCrate(Vector3 position)
     {
-        return objectGrid[Vector2Int.FloorToInt(position)].gameObject;
+        return objectGrid[Vector2Int.FloorToInt(position)].crate;
     }
 
    

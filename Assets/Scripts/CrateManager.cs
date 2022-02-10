@@ -6,8 +6,10 @@ using UnityEngine;
 public class CrateManager : MonoBehaviour
 {
     public List<GameObject> cratePositions;
+    public List<GameObject> goalPositions;
   
     public GameObject cratePrefab;
+    public GameObject goalPrefab;
 
     public LevelManager levelManager;
    
@@ -18,16 +20,32 @@ public class CrateManager : MonoBehaviour
        
 
         InstantiateCrates();
+        InstantiateGoals();
         
+    }
+
+    private void InstantiateGoals()
+    {
+         foreach (GameObject goal in goalPositions)
+       {
+           GameObject goalInstance=Instantiate(goalPrefab,goal.transform.position,Quaternion.identity,transform);
+           Cell gridCell=levelManager.objectGrid[Vector2Int.FloorToInt(goal.transform.position)];
+           gridCell.goal=goalInstance;
+          
+           
+           
+
+       }
+       
     }
 
     private void InstantiateCrates()
     {
        foreach (GameObject crate in cratePositions)
        {
-           GameObject crateInstance=Instantiate(cratePrefab,crate.transform.position,Quaternion.identity,transform);
+           Crate crateInstance=Instantiate(cratePrefab,crate.transform.position,Quaternion.identity,transform).GetComponent<Crate>();
            Cell gridCell=levelManager.objectGrid[Vector2Int.FloorToInt(crate.transform.position)];
-           gridCell.gameObject=crateInstance;
+           gridCell.crate=crateInstance;
           
            
            
