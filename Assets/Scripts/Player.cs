@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
 
 
 public class Player : MonoBehaviour
@@ -12,7 +13,11 @@ public class Player : MonoBehaviour
     private Vector3 targetPosition;
     private bool movingToTargetPosition=false;
 
-    [SerializeField] private float moveSpeed=10f;
+    [SerializeField] private float moveSpeed=.001f;
+    
+    [SerializeField] private Animator playerAnimator;
+
+    
 
     
 
@@ -22,7 +27,7 @@ public class Player : MonoBehaviour
         levelManager=GameObject.FindObjectOfType<LevelManager>();
 
         PrepareInput();
-
+        
 
     }
 
@@ -75,6 +80,7 @@ public class Player : MonoBehaviour
            //position is not blocked move to target position
             movingToTargetPosition=true;
             // transform.position+=position;
+            SetAnimation(position);
 
        }
        else
@@ -86,6 +92,7 @@ public class Player : MonoBehaviour
             PushCrate(position,crateInPosition);
            
             CheckGoal(targetPosition,goalInPosition);
+            SetAnimation(position);
 
            
             
@@ -144,6 +151,7 @@ public class Player : MonoBehaviour
             if (movingToTargetPosition)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+                
 
             }
 
@@ -151,7 +159,49 @@ public class Player : MonoBehaviour
         else
         {
             movingToTargetPosition = false;
+            SetAnimation(new Vector3(0,0,0));
         }
+    }
+
+
+    private void SetAnimation(Vector3 position)
+    {
+       if(!movingToTargetPosition)
+       {
+           //player is not currently moving so set bools to false
+           playerAnimator.SetBool("walkingForward",false);
+           playerAnimator.SetBool("walkingBackward",false);
+           playerAnimator.SetBool("walkingRight",false);
+           playerAnimator.SetBool("walkingLeft",false);
+       }
+       else
+       {
+           if(position.y<0)
+           {
+               playerAnimator.SetBool("walkingForward",true);
+           }
+           if(position.y>0)
+           {
+               playerAnimator.SetBool("walkingBackward",true);
+           }
+
+           if(position.x>0)
+           {
+               playerAnimator.SetBool("walkingRight",true);
+           }
+           if(position.x<0)
+           {
+               playerAnimator.SetBool("walkingLeft",true);
+
+           }
+
+       }
+
+       //now check whether player moving up or down vertically
+       
+
+
+       //now check whether player moving left or right vertically
     }
 
 
