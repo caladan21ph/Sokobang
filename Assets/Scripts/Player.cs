@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Sprites;
+using UnityEngine.Assertions;
 
 
 
@@ -27,8 +28,13 @@ public class Player : MonoBehaviour
     {
         targetPosition=transform.position;
         levelManager=GameObject.FindObjectOfType<LevelManager>();
+        
+
+        
 
         PrepareInput();
+
+
         
 
     }
@@ -47,6 +53,7 @@ public class Player : MonoBehaviour
     {
         //do not move if currently moving
         if(movingToTargetPosition) return;
+        
 
         switch (keyCode)
         {
@@ -110,36 +117,31 @@ public class Player : MonoBehaviour
 
     private void CheckGoal(Vector3 position, Goal goalInPosition)
     {
+        //check if goal is in position and there is no crate
         if (goalInPosition != null && levelManager.GetCell(position).Crate==null)
         {
-            //Debug.Log(objectInPosition.GetType().ToString());
-            if (goalInPosition.tag == "Goal")
-            {
-                Debug.Log("Stepped on goal");
-                movingToTargetPosition=true;
-                
-            }
-
+           
+           movingToTargetPosition=true;
         }
     }
 
-    private bool PushCrate(Vector3 position, Crate objectInPosition)
+
+
+    private bool PushCrate(Vector3 position, Crate crateInPosition)
     {
         //Check if object is crate, and if it is push it
       
-        if (objectInPosition != null)
+        if (crateInPosition != null)
         {
-            //Debug.Log(objectInPosition.GetType().ToString());
-            if (objectInPosition.tag == "Crate")
-            {
+            
                 // Debug.Log("pushed crate");
-                if (objectInPosition.GetComponent<Crate>().Pushed(position) == true)
+                if (crateInPosition.GetComponent<Crate>().Pushed(position) == true)
                 {
                     movingToTargetPosition = true;
                     // transform.position+=position;
                     return true;
                 }
-            }
+            
 
         }
         return false;
@@ -175,14 +177,10 @@ public class Player : MonoBehaviour
     private void SetAnimation(Vector3 position)
     {
        if(!movingToTargetPosition)
-       {
-           //player is not currently moving so set bools to false
-           playerAnimator.SetBool("walkingForward",false);
-           playerAnimator.SetBool("walkingBackward",false);
-           playerAnimator.SetBool("walkingRight",false);
-           playerAnimator.SetBool("walkingLeft",false);
-       }
-       else
+        {
+            ResetAnimationBools();
+        }
+        else
        {
            if(position.y<0)
            {
@@ -219,6 +217,15 @@ public class Player : MonoBehaviour
       
     }
 
+    private void ResetAnimationBools()
+    {
+        //player is not currently moving so set bools to false
+        playerAnimator.SetBool("walkingForward", false);
+        playerAnimator.SetBool("walkingBackward", false);
+        playerAnimator.SetBool("walkingRight", false);
+        playerAnimator.SetBool("walkingLeft", false);
+    }
+
     public void SetFacing(string lastDirection)
     {
         playerAnimator.Play(lastDirection,0);
@@ -233,12 +240,4 @@ public class Player : MonoBehaviour
 
 }
 
-enum Facing
-{
-    Front,
-    Back,
-    Right,
-    Left
-  
 
-}
