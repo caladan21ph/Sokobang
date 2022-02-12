@@ -89,8 +89,8 @@ public class Player : MonoBehaviour
        else
         {
             //position has something so do something about it
-            Crate crateInPosition = levelManager.GetCellCrate(targetPosition);
-            Goal  goalInPosition=levelManager.GetCellGoal(targetPosition);
+            Crate crateInPosition = levelManager.GetCell(targetPosition).Crate;
+            Goal  goalInPosition=levelManager.GetCell(targetPosition).Goal;
 
             PushCrate(position,crateInPosition);
            
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
 
     private void CheckGoal(Vector3 position, Goal goalInPosition)
     {
-        if (goalInPosition != null && levelManager.GetCellCrate(position)==null)
+        if (goalInPosition != null && levelManager.GetCell(position).Crate==null)
         {
             //Debug.Log(objectInPosition.GetType().ToString());
             if (goalInPosition.tag == "Goal")

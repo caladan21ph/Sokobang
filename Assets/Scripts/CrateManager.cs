@@ -30,7 +30,7 @@ public class CrateManager : MonoBehaviour
        {
            Goal goalInstance=Instantiate(goalPrefab,goal.transform.position,Quaternion.identity,transform).GetComponent<Goal>();
            Cell gridCell=levelManager.objectGrid[Vector2Int.FloorToInt(goal.transform.position)];
-           gridCell.goal=goalInstance;
+           gridCell.Goal=goalInstance;
           
            
            
@@ -45,7 +45,7 @@ public class CrateManager : MonoBehaviour
        {
            Crate crateInstance=Instantiate(cratePrefab,crate.transform.position,Quaternion.identity,transform).GetComponent<Crate>();
            Cell gridCell=levelManager.objectGrid[Vector2Int.FloorToInt(crate.transform.position)];
-           gridCell.crate=crateInstance;
+           gridCell.Crate=crateInstance;
           
            
            

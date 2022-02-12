@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
 
     private int numberOfMoves=0;
     
-    UnityAction movesIncrementedAction;
+    private UnityAction movesIncrementedAction;
 
   
 
@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
     {
        
 
-         PrepareObjectGrid();
+      
 
 
         
@@ -43,13 +43,10 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3Int playerPos = GetObjectInGridPosition(player.transform.position);
-
-
-
-        Debug.Log(playerPos);
-
        
+
+        PrepareObjectGrid();
+
 
     }
 
@@ -69,22 +66,7 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    private void AddWallsToObjectGrid()
-    {
-        Debug.Log(wallTilemap.origin);
-        for (int i = wallTilemap.origin.x; i < wallTilemap.size.x; i++)
-        {
-          
-            for (int j = wallTilemap.origin.y; j < wallTilemap.size.y; j++)
-            {
-                TileBase tile = wallTilemap.GetTile(Vector3Int.FloorToInt(new Vector3(i, j, 0)));
-                // Debug.Log(tile);
-                
-
-            }
-
-        }
-    }
+    
 
     public Vector3Int GetObjectInGridPosition(Vector3 objectPosition)
     {
@@ -99,7 +81,7 @@ public class LevelManager : MonoBehaviour
         Vector3Int adjustedPosition=Vector3Int.FloorToInt(position-new Vector3(wallTilemap.size.x/2,wallTilemap.size.y/2,0));
        
         Cell targetCell=objectGrid[Vector2Int.FloorToInt(position)];
-        if(targetCell.crate!=null || targetCell.goal!=null || wallTilemap.GetTile(adjustedPosition)!=null)
+        if(targetCell.Crate!=null || targetCell.Goal!=null || wallTilemap.GetTile(adjustedPosition)!=null)
         {
             return true;
         }
@@ -111,14 +93,10 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public Crate GetCellCrate(Vector3 position)
-    {
-        return objectGrid[Vector2Int.FloorToInt(position)].crate;
-    }
 
-    public Goal GetCellGoal(Vector3 position)
+    public Cell GetCell(Vector3 position)
     {
-        return objectGrid[Vector2Int.FloorToInt(position)].goal;
+        return  objectGrid[Vector2Int.FloorToInt(position)];
     }
 
 
@@ -138,7 +116,7 @@ public class LevelManager : MonoBehaviour
 
         foreach (Vector3 position in goalPositions)
         {
-            if(GetCellCrate(position)!=null && GetCellGoal(position)!=null)
+            if(GetCell(position).Crate!=null && GetCell(position).Goal!=null)
             {
                
                 amountOfGoalsFilled+=1;

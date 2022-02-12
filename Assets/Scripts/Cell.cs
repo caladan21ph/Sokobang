@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Cell 
 {
-    public Crate crate;
-    public Goal goal;
+    private Crate crate;
+    private Goal goal;
     public Cell()
     {
         
     }
 
+    public Crate Crate { get => crate; set => crate = value; }
+    public Goal Goal { get => goal; set => goal = value; }
+
     public bool CheckIfCrateMatchesGoal()
     {
-        if(goal!=null && crate!=null)
+        if(Goal!=null && Crate!=null)
         {
            return true;
         }
