@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Sprites;
 
 
+
 public class Player : MonoBehaviour
 {
     private InputManager inputManager;
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed=.001f;
     
     [SerializeField] private Animator playerAnimator;
+    private string lastDirection="Player_idle_down";
 
     
 
@@ -160,6 +162,8 @@ public class Player : MonoBehaviour
         {
             movingToTargetPosition = false;
             SetAnimation(new Vector3(0,0,0));
+            SetFacing(lastDirection);
+
         }
     }
 
@@ -179,22 +183,33 @@ public class Player : MonoBehaviour
            if(position.y<0)
            {
                playerAnimator.SetBool("walkingForward",true);
+               lastDirection="Player_idle_down";
+               
            }
            if(position.y>0)
            {
                playerAnimator.SetBool("walkingBackward",true);
+               lastDirection="Player_idle_up";
+                
            }
 
            if(position.x>0)
            {
                playerAnimator.SetBool("walkingRight",true);
+               lastDirection="Player_idle_right";
+               
+                
            }
            if(position.x<0)
            {
                playerAnimator.SetBool("walkingLeft",true);
+               lastDirection="Player_idle_left";
+               
 
            }
 
+
+           
        }
 
        //now check whether player moving up or down vertically
@@ -204,10 +219,26 @@ public class Player : MonoBehaviour
        //now check whether player moving left or right vertically
     }
 
+    public void SetFacing(string lastDirection)
+    {
+        playerAnimator.Play(lastDirection,0);
+        
+    }
 
 
 
 
 
+
+
+}
+
+enum Facing
+{
+    Front,
+    Back,
+    Right,
+    Left
+  
 
 }
