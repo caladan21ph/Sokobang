@@ -212,11 +212,7 @@ public class Player : MonoBehaviour
            
        }
 
-       //now check whether player moving up or down vertically
-       
-
-
-       //now check whether player moving left or right vertically
+      
     }
 
     public void SetFacing(string lastDirection)
