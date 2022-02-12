@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
             movingToTargetPosition=true;
             // transform.position+=position;
             SetAnimation(position);
+            levelManager.IncrementSteps();
 
        }
        else
@@ -95,6 +96,8 @@ public class Player : MonoBehaviour
            
             CheckGoal(targetPosition,goalInPosition);
             SetAnimation(position);
+            levelManager.IncrementSteps();
+          
 
            
             
@@ -114,6 +117,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Stepped on goal");
                 movingToTargetPosition=true;
+                
             }
 
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
@@ -15,14 +16,17 @@ public class LevelManager : MonoBehaviour
 
     public CrateManager crateManager;
 
+    private int numberOfMoves=0;
+    
+    UnityAction movesIncrementedAction;
+
   
 
     
 
     public Dictionary<Vector2Int,Cell> objectGrid=new Dictionary<Vector2Int, Cell>();
-    
-    
 
+    public int NumberOfMoves { get => numberOfMoves; set => numberOfMoves = value; }
 
     private void Awake() 
     {
@@ -147,6 +151,18 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Level Complete!");
         }
 
+    }
+
+    public void IncrementSteps()
+    {
+        numberOfMoves+=1;
+        movesIncrementedAction.Invoke();
+    }
+
+
+    public void AddMovesIncrementedActionListener(UnityAction listener)
+    {
+        movesIncrementedAction+=listener;
     }
     
 
