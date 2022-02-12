@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class CrateManager : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class CrateManager : MonoBehaviour
     public GameObject cratePrefab;
     public GameObject goalPrefab;
 
-    public LevelManager levelManager;
+    private LevelManager levelManager;
    
 
     // Start is called before the first frame update
     void Start()
     {
+        levelManager=GameObject.FindObjectOfType<LevelManager>();
+        
+        Assert.IsNotNull(levelManager);
+        
        
 
         InstantiateCrates();

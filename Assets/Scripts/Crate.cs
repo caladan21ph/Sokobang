@@ -30,13 +30,13 @@ public class Crate : MonoBehaviour
         //Check if there is object in target position
         if((objectInPosition==false) || (objectInPosition && goalInPosition && crateInPosition==null ))
         {
-            Debug.Log("crate pushed");
+          
             //remove crate from current cell and move to target cell
             levelManager.objectGrid[Vector2Int.FloorToInt(transform.position)].Crate=null;
             levelManager.objectGrid[Vector2Int.FloorToInt(targetPosition)].Crate=this.gameObject.GetComponent<Crate>();
+            
+            
             //position is not blocked.Move crate
-
-            // transform.position=targetPosition;
             movingToTargetPosition=true;
 
             //check if level complete everytime crate moves

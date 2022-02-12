@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
         targetPosition=transform.position;
         levelManager=GameObject.FindObjectOfType<LevelManager>();
         
+        Assert.IsNotNull(levelManager);
+        
 
         
 
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour
     private void PrepareInput()
     {
         inputManager = GameObject.FindObjectOfType<InputManager>();
+        Assert.IsNotNull(inputManager);
 
         if (inputManager != null)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Assertions;
 
 public class UIController : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class UIController : MonoBehaviour
     void Start()
     {
         levelManager=GameObject.FindObjectOfType<LevelManager>();
+
+        Assert.IsNotNull(levelManager);
+
+
         levelManager.AddMovesIncrementedActionListener(UpdateMoveStatText);
         
     }
