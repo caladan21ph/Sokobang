@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
            
             CheckGoal(targetPosition,goalInPosition);
             SetAnimation(position);
-            levelManager.IncrementSteps();
+           
           
 
            
@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
         {
            
            movingToTargetPosition=true;
+           levelManager.IncrementSteps();
         }
     }
 

@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     UnityAction<KeyCode> keyPressedAction;
     
     
+    
     void Update()
     {
         GetInput();
@@ -17,21 +18,21 @@ public class InputManager : MonoBehaviour
 
     private void GetInput()
     {
-      if(Input.GetKeyDown(KeyCode.UpArrow))
+      if(Input.GetKey(KeyCode.UpArrow))
       {
           keyPressedAction?.Invoke(KeyCode.UpArrow);
       }
 
-      if(Input.GetKeyDown(KeyCode.DownArrow))
+      if(Input.GetKey(KeyCode.DownArrow))
       {
           keyPressedAction?.Invoke(KeyCode.DownArrow);
       }
-      if(Input.GetKeyDown(KeyCode.LeftArrow))
+      if(Input.GetKey(KeyCode.LeftArrow))
       {
           keyPressedAction?.Invoke(KeyCode.LeftArrow);
       }
 
-      if(Input.GetKeyDown(KeyCode.RightArrow))
+      if(Input.GetKey(KeyCode.RightArrow))
       {
           keyPressedAction?.Invoke(KeyCode.RightArrow);
       }
