@@ -182,19 +182,23 @@ public class Player : MonoBehaviour
        if(!movingToTargetPosition)
         {
             ResetAnimationBools();
+            
         }
         else
        {
+          
            if(position.y<0)
            {
                playerAnimator.SetBool("walkingForward",true);
                lastDirection="Player_idle_down";
+                playerAnimator.SetFloat("offSet",0);
                
            }
            if(position.y>0)
            {
                playerAnimator.SetBool("walkingBackward",true);
                lastDirection="Player_idle_up";
+                playerAnimator.SetFloat("offSet",1);
                 
            }
 
@@ -202,6 +206,7 @@ public class Player : MonoBehaviour
            {
                playerAnimator.SetBool("walkingRight",true);
                lastDirection="Player_idle_right";
+               playerAnimator.SetFloat("offSet",.33f);
                
                 
            }
@@ -209,6 +214,7 @@ public class Player : MonoBehaviour
            {
                playerAnimator.SetBool("walkingLeft",true);
                lastDirection="Player_idle_left";
+                playerAnimator.SetFloat("offSet",.66f);
                
 
            }
